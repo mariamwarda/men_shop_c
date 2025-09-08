@@ -1,33 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:menshop/helpers/colors.dart';
 import 'package:menshop/helpers/text_style.dart';
-class Field extends StatelessWidget {
-  Field({super.key,this.controller,this.eyeWidget,
-    required this.hintText,this.showEyeIcon=false,this.obscureText=false});
-  TextEditingController? controller;
-  String? hintText;
-  bool showEyeIcon;
-  Widget ?eyeWidget;
-  bool obscureText;
+
+class Field extends StatefulWidget {
+  const Field({
+    super.key,
+    this.controller,
+    required this.hintText,
+    this.isPassword = false,
+  });
+
+  final TextEditingController? controller;
+  final String hintText;
+  final bool isPassword;
+
+  @override
+  State<Field> createState() => _FieldState();
+}
+
+class _FieldState extends State<Field> {
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText:obscureText ,
-      controller: controller,
+      controller: widget.controller,
+      obscureText: widget.isPassword ? _obscureText : false,
       decoration: InputDecoration(
-          suffixIcon:showEyeIcon==false?SizedBox.shrink():eyeWidget,
-
-          hintStyle: AppTextStyles.kTextStyle16Grey.copyWith(
-              fontWeight: FontWeight.w400
+        hintText: widget.hintText,
+        hintStyle: AppTextStyles.kTextStyle16Grey.copyWith(
+          fontWeight: FontWeight.w400,
+        ),
+        suffixIcon: widget.isPassword
+            ? IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+            color: AppColors.borderFieldColor,
           ),
-          hintText:hintText ,
-          focusedBorder: OutlineInputBorder(),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.borderFieldColor)
-
-          )
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        )
+            : null,
+        focusedBorder: const OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: AppColors.borderFieldColor),
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:menshop/helpers/bar.dart';
 import 'package:menshop/login/cubit.dart';
 import 'package:menshop/login/state.dart';
 import 'package:menshop/nav_bar/screen/home.dart';
+import 'package:menshop/signup/sign_up.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,11 +20,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (_) => LoginCubit(),
-        child: const Login(),
+    return BlocProvider(
+      create: (_) => LoginCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const Login(),
       ),
     );
   }
@@ -54,7 +55,7 @@ class Login extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => HomePage(),
+                builder: (context) => const HomePage(),
               ),
             );
           }
@@ -102,27 +103,50 @@ class Login extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Field(
-                  showEyeIcon: true,
-                  obscureText: cubit.obscureText,
-                  eyeWidget: IconButton(
-                    onPressed: () {
-                      cubit.toggleEye();
-                    },
-                    icon: Icon(
-                      cubit.obscureText
-                          ? Icons.visibility_off
-                          : Icons.visibility_outlined,
-                    ),
-                    color: Colors.grey,
-                  ),
                   hintText: "Enter your user password",
                   controller: cubit.passwordController,
+                  isPassword: true,
                 ),
+
                 const SizedBox(height: 55),
-                Buttom(
-                  text: "Login",
-                  onPressed: () => cubit.login(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Buttom(
+                      text: "Login",
+                      onPressed: () => cubit.login(),
+                    ),
+                    const SizedBox(height: 16),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don’t have an account? ",
+                          style: AppTextStyles.kTextStyle16Grey,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CreateAccountScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Sign up",
+                            style: AppTextStyles.kTextStyle16MediumBlack.copyWith(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
+
               ],
             ),
           );

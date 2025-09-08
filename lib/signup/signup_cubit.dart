@@ -3,36 +3,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:menshop/networking/dio-h.dart';
 import 'package:menshop/networking/end_points.dart';
-import 'package:menshop/login/state.dart';
+import 'package:menshop/signup/signup_state.dart';
 
-class LoginCubit extends Cubit<LoginStates> {
-  LoginCubit() : super(LoginInitial());
+class SignUpCubit extends Cubit<SignUpStates> {
+  SignUpCubit() : super(SignUpInitial());
 
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   bool obscureText = true;
-  Future<void> login() async {
+
+  void toggleEye() {
+    obscureText = !obscureText;
+    emit(SignUpTogglePassword(obscureText));
+  }
+
+  Future<void> signUp() async {
     try {
-      emit(LoginLoading());
+      emit(SignUpLoading());
 
       final Response response = await DioHelper.postRequest(
-        endPoint: AppEndPoints.login,
+        endPoint: AppEndPoints.signup,
         data: {
           "username": nameController.text,
+          "email": emailController.text,
           "password": passwordController.text,
         },
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        emit(LoginSuccess(response.data));
+        emit(SignUpSuccess(response.data));
       } else {
-        emit(LoginFailure("Unexpected error: ${response.statusCode}"));
+        emit(SignUpFailure("Unexpected error: ${response.statusCode}"));
       }
     } on DioException catch (e) {
-      emit(LoginFailure(e.response?.data.toString() ?? e.message ?? "Error"));
+      emit(SignUpFailure(e.response?.data?.toString() ?? e.message ?? "Error"));
     } catch (e) {
-      emit(LoginFailure(e.toString()));
+      emit(SignUpFailure(e.toString()));
     }
   }
 }
