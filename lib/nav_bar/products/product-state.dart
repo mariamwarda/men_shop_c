@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 abstract class ProductState extends Equatable {
   const ProductState();
 
+  @override
   List<Object?> get props => [];
 }
 
@@ -20,4 +21,11 @@ class ProductSuccess extends ProductState {
   List<Object?> get props => [model];
 }
 
-class ProductFailure extends ProductState {}
+class ProductFailure extends ProductState {
+  final String error;
+
+  const ProductFailure(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
