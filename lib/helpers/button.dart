@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:menshop/helpers/colors.dart';
 import 'package:menshop/helpers/text_style.dart';
 class Buttom extends StatelessWidget {
-  Buttom({super.key,required this.onPressed, this.text,this.widget});
+  Buttom({super.key,required this.onPressed, this.text,this.widget, this.textColor, this.backgroundColor});
   void Function()? onPressed;
   String ?text;
   Widget?widget;
+  Color ?textColor;
+  Color ?backgroundColor;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

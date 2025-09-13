@@ -8,11 +8,13 @@ class Field extends StatefulWidget {
     this.controller,
     required this.hintText,
     this.isPassword = false,
+    this.ShowIcon=false
   });
 
   final TextEditingController? controller;
   final String hintText;
   final bool isPassword;
+  final bool ShowIcon;
 
   @override
   State<Field> createState() => _FieldState();
@@ -31,9 +33,8 @@ class _FieldState extends State<Field> {
         hintStyle: AppTextStyles.kTextStyle16Grey.copyWith(
           fontWeight: FontWeight.w400,
         ),
-        suffixIcon: widget.isPassword
-            ? IconButton(
-          icon: Icon(
+        prefixIcon: widget.ShowIcon ?Icon(Icons.search):null,
+        suffixIcon: widget.isPassword ? IconButton(icon: Icon(
             _obscureText ? Icons.visibility_off : Icons.visibility,
             color: AppColors.borderFieldColor,
           ),

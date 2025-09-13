@@ -5,6 +5,7 @@ class AppAssets{
   static const homeSvg="assets/images/home.svg";
   static const splashJson="assets/json/shopping.json";
   static const loadingJson="assets/json/loading.json";
+  static const settings="assets/Images/setting.svg";
 
 
 }

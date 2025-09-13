@@ -1,4 +1,10 @@
-part of '../screen/home.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:menshop/helpers/text_style.dart';
+import 'package:menshop/nav_bar/products/product-state.dart';
+import 'package:menshop/nav_bar/products/product_cubit.dart';
+import 'package:menshop/nav_bar/products/produuct_item.dart';
+
 
 class AllProductHomePage extends StatelessWidget {
   const AllProductHomePage({super.key});
