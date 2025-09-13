@@ -18,7 +18,7 @@ class _HomeNavScreenState extends State<HomeNavScreen> {
   List<Widget> screens = [
     HomePage(),
     Cart(),
-    Account(),
+    Account()
   ];
 
   @override

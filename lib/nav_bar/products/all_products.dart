@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:menshop/helpers/text_style.dart';
-import 'package:menshop/nav_bar/products/product-state.dart';
-import 'package:menshop/nav_bar/products/product_cubit.dart';
-import 'package:menshop/nav_bar/products/produuct_item.dart';
-
+part of '../screen/home.dart';
 
 class AllProductHomePage extends StatelessWidget {
   const AllProductHomePage({super.key});
@@ -15,6 +9,8 @@ class AllProductHomePage extends StatelessWidget {
       builder: (context, state) {
         if (state is ProductSuccess) {
           return GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: state.model.length,
             padding: const EdgeInsets.all(8),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -36,13 +32,28 @@ class AllProductHomePage extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(
-                        child: Image.network(product.image ?? ""),
+                        child: Image.network(
+                          product.image ?? "",
+                          fit: BoxFit.contain,
+                        ),
                       ),
+                      const SizedBox(height: 6),
                       Text(
                         product.title ?? "",
                         style: AppTextStyles.kTextStyle16MediumBlack,
@@ -52,7 +63,6 @@ class AllProductHomePage extends StatelessWidget {
                       Text(
                         r"$" + product.price.toString(),
                         style: AppTextStyles.kTextStyle16Grey,
-                        textAlign: TextAlign.start,
                       ),
                     ],
                   ),

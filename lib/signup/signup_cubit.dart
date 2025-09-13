@@ -23,7 +23,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
       emit(SignUpLoading());
 
       final Response response = await DioHelper.postRequest(
-        endPoint: AppEndPoints.signup,
+        endPoint: AppEndPoints.signUp,
         data: {
           "username": nameController.text,
           "email": emailController.text,

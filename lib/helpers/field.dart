@@ -8,7 +8,7 @@ class Field extends StatefulWidget {
     this.controller,
     required this.hintText,
     this.isPassword = false,
-    this.ShowIcon=false
+    this.ShowIcon=false,
   });
 
   final TextEditingController? controller;
