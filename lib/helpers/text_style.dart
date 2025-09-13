@@ -44,4 +44,10 @@ class AppTextStyles {
     color: Colors.white,
     fontWeight: FontWeight.w500,
   );
+
+  static const TextStyle logout = TextStyle(
+    color: AppColors.red,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
 }
