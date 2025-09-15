@@ -8,15 +8,33 @@ import 'package:menshop/login/login.dart';
 import 'package:menshop/signup/signup_cubit.dart';
 import 'package:menshop/signup/signup_state.dart';
 
-void main() {
-  runApp(
-    BlocProvider(
-      create: (_) => SignUpCubit(),
-      child: const CreateAccountScreen(),
-    ),
-  );
-}
+import '../login/cubit.dart';
 
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) =>
+        LoginCubit()
+          ..login()),
+        BlocProvider(create: (_) => SignUpCubit()),
+
+      ],
+      child: MaterialApp(
+        title: 'MenShop',
+        debugShowCheckedModeBanner: false,
+        //localizationsDelegates: context.localizationDelegates,
+        //supportedLocales: context.supportedLocales,
+        //locale: context.locale,
+        home: const LoginScreen(),
+      ),
+    );
+  }
+}
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
 
